@@ -45,6 +45,10 @@ def validRow(row) -> bool:
     stitches_out = stitches_out + item.stitchesOut
   return stitches_in == stitches_out
 
+def insert(row, s, count):
+  for i in range(0, count):
+    row.append(s())
+
 row = [
   Knit(),
   Knit(),
@@ -65,15 +69,13 @@ row = [
   Knit(),
 ]
 
-passes = []
-
 # stitch 0 is on left and stitch n in on right as you face the machine
 
-def passLeftToRightPattern(stitches, row):
+def passLeftToRightPattern(stitches, row, passes):
   needles = []
   for i in range(0, len(row)):
     item = row[i]
-    if isinstance(item, KnitTogetherRight) or isinstance(item, KnitThreeTogether):
+    if isinstance(item, KnitTogetherLeft) or isinstance(item, KnitThreeTogether):
       # lower number needle will be pushed out to pass stitch right 
       stitch = min(item.inStitchIDs)
       needles.append(stitch)
@@ -82,7 +84,7 @@ def passLeftToRightPattern(stitches, row):
       item.currentNeedle = stitch + 1
   passes.append(needles)
 
-def passRightToLeftPattern(stitches, row):
+def passRightToLeftPattern(stitches, row, passes):
   needles = []
   for i in range(0, len(row)):
     item = row[i]
@@ -101,7 +103,7 @@ def parseNonPatternStitches(row):
     if isinstance(item, Knit):
       pass
 
-def passLefttoRightMoveStitches(stitches, row):
+def passLefttoRightMoveStitches(stitches, row, passes):
   needles = []
   for item in row:
     if item.currentNeedle == None:
@@ -114,9 +116,9 @@ def passLefttoRightMoveStitches(stitches, row):
         item.currentNeedle = item.currentNeedle + 1
   passes.append(needles)
 
-def passRighttoLeftMoveStitches(stitches, row):
+def passRighttoLeftMoveStitches(stitches, row, passes):
   needles = []
-  for item in row:
+  for item in list(reversed(row)):
     if item.currentNeedle == None:
       continue
     if(item.currentNeedle > item.outStitchID):
@@ -136,6 +138,7 @@ def checkRow(row) -> bool:
 
 def processRow(row):
   stitches = []
+  passes = []
   for _ in row:
     stitches.append(1)
   print(stitches)
@@ -162,12 +165,16 @@ def processRow(row):
       i = i + 1  
     j = j + 1  
 
-  passRightToLeftPattern(stitches, row)
-  passLeftToRightPattern(stitches, row)
+  passRightToLeftPattern(stitches, row, passes)
+  passLeftToRightPattern(stitches, row, passes)
 
   while(not checkRow(row)):
-     passRighttoLeftMoveStitches(stitches, row)
-     passLefttoRightMoveStitches(stitches, row)
+     passRighttoLeftMoveStitches(stitches, row, passes)
+     passLefttoRightMoveStitches(stitches, row, passes)
+
+  if passes[-1] != []:
+    passes.append([]) # move left to right, finishing last setup row
+    passes.append([]) # move right to left, ready for K carraige
 
   return passes
       
