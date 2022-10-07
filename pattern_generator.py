@@ -1,6 +1,3 @@
-from enum import Enum
-from multiprocessing import connection
-
 class Stitch():
   def __init__(self) -> None:
     self.inStitchIDs = []
@@ -131,13 +128,18 @@ def passRighttoLeftMoveStitches(stitches, row):
   passes.append(needles)
 
 
-def checkRow(stitches, row) -> bool:
+def checkRow(row) -> bool:
   for item in row:
     if (item.currentNeedle != item.outStitchID):
       return False
   return True
 
-def processRow(stitches, row):
+def processRow(row):
+  stitches = []
+  for _ in row:
+    stitches.append(1)
+  print(stitches)
+
   i = 0
   j = 0
   for item in row:
@@ -163,18 +165,16 @@ def processRow(stitches, row):
   passRightToLeftPattern(stitches, row)
   passLeftToRightPattern(stitches, row)
 
-  while(not checkRow(stitches, row)):
+  while(not checkRow(row)):
      passRighttoLeftMoveStitches(stitches, row)
      passLefttoRightMoveStitches(stitches, row)
+
+  return passes
       
 
 def main():
   if(validRow(row)):
-    stitches = []
-    for _ in row:
-      stitches.append(1)
-    print(stitches)
-    processRow(stitches, row)
+    processRow(row)
     print('done!')
   else:
     print('Invalid row!')
