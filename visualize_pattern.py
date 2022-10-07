@@ -3,31 +3,6 @@ from PIL import Image
 import numpy
 import pattern_generator as gen
 
-# row = [
-#   gen.Knit(),
-#   gen.Knit(),
-#   gen.YarnOver(),
-#   gen.Knit(),
-#   gen.Knit(),
-#   gen.Knit(),
-#   gen.YarnOver(),
-#   gen.KnitTogetherRight(),
-#   gen.KnitTogetherRight(),
-#   gen.Knit(),
-#   gen.Knit(),
-#   gen.YarnOver(),
-#   gen.KnitTogetherRight(),
-#   gen.Knit(),
-#   gen.Knit(),
-#   gen.Knit(),
-#   gen.Knit(),
-#   gen.KnitTogetherRight(),
-#   gen.Knit(),
-#   gen.Knit(), 
-#   gen.YarnOver(),
-
-# ]
-
 pattern = []
 
 # row 0
@@ -76,22 +51,87 @@ pattern.append(row1)
 row2 = []
 gen.insert(row2, gen.Knit, 2)
 row2.append(gen.YarnOver())
-gen.insert(row2, gen.Knit, 5)
+gen.insert(row2, gen.Knit, 6)
 row2.append(gen.YarnOver())
-row2.append(gen.KnitThreeTogether())
+row2.append(gen.KnitTogetherRight())
 gen.insert(row2, gen.Knit, 2)
 row2.append(gen.YarnOver())
 row2.append(gen.KnitTogetherRight())
-gen.insert(row2, gen.Knit, 3)
+gen.insert(row2, gen.Knit, 2)
+row2.append(gen.KnitTogetherRight())
+gen.insert(row2, gen.Knit, 2)
+row2.append(gen.YarnOver())
+row2.append(gen.KnitTogetherRight())
+gen.insert(row2, gen.Knit, 6)
 row2.append(gen.KnitTogetherRight())
 gen.insert(row2, gen.Knit, 2)
 row2.append(gen.YarnOver())
 gen.insert(row2, gen.Knit, 8)
-row2.append(gen.KnitTogetherRight())
-gen.insert(row2, gen.Knit, 2)
-row2.append(gen.YarnOver())
-gen.insert(row2, gen.Knit, 7)
 pattern.append(row2)
+
+# row 3
+row3 = []
+gen.insert(row3, gen.Knit, 2)
+row3.append(gen.YarnOver())
+gen.insert(row3, gen.Knit, 7)
+row3.append(gen.YarnOver())
+row3.append(gen.KnitTogetherRight())
+gen.insert(row3, gen.Knit, 2)
+row3.append(gen.YarnOver())
+row3.append(gen.KnitTogetherRight())
+gen.insert(row3, gen.Knit, 1)
+row3.append(gen.KnitTogetherRight())
+gen.insert(row3, gen.Knit, 2)
+row3.append(gen.YarnOver())
+row3.append(gen.KnitTogetherRight())
+gen.insert(row3, gen.Knit, 5)
+row3.append(gen.KnitTogetherRight())
+gen.insert(row3, gen.Knit, 2)
+row3.append(gen.YarnOver())
+gen.insert(row3, gen.Knit, 9)
+pattern.append(row3)
+
+# row 4
+row4 = []
+gen.insert(row4, gen.Knit, 1)
+row4.append(gen.YarnOver())
+gen.insert(row4, gen.Knit, 8)
+row4.append(gen.YarnOver())
+gen.insert(row4, gen.Knit, 4)
+row4.append(gen.YarnOver())
+row4.append(gen.KnitTogetherRight())
+row4.append(gen.KnitTogetherRight())
+gen.insert(row4, gen.Knit, 2)
+row4.append(gen.YarnOver())
+row4.append(gen.KnitTogetherRight())
+gen.insert(row4, gen.Knit, 4)
+row4.append(gen.KnitTogetherRight())
+gen.insert(row4, gen.Knit, 2)
+row4.append(gen.YarnOver())
+gen.insert(row4, gen.Knit, 8)
+row4.append(gen.KnitTogetherRight())
+gen.insert(row4, gen.Knit, 1)
+pattern.append(row4)
+
+# row 5
+row5 = []
+row5.append(gen.YarnOver())
+gen.insert(row5, gen.Knit, 9)
+row5.append(gen.YarnOver())
+gen.insert(row5, gen.Knit, 5)
+row5.append(gen.YarnOver())
+row5.append(gen.KnitThreeTogether())
+gen.insert(row5, gen.Knit, 2)
+row5.append(gen.YarnOver())
+row5.append(gen.KnitTogetherRight())
+gen.insert(row5, gen.Knit, 3)
+row5.append(gen.KnitTogetherRight())
+gen.insert(row5, gen.Knit, 2)
+row5.append(gen.YarnOver())
+gen.insert(row5, gen.Knit, 8)
+row5.append(gen.KnitTogetherRight())
+gen.insert(row5, gen.Knit, 2)
+pattern.append(row5)
 
 
 
