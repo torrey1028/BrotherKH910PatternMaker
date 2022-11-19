@@ -40,9 +40,12 @@ def validRow(row) -> bool:
   stitches_in = 0
   stitches_out = 0
   for item in row:
-    print('stitches in: %d, stitches out: %d' % (item.stitchesIn, item.stitchesOut))
+    #print('stitches in: %d, stitches out: %d' % (item.stitchesIn, item.stitchesOut))
     stitches_in = stitches_in + item.stitchesIn
     stitches_out = stitches_out + item.stitchesOut
+  if (stitches_in != stitches_out):
+    print('stitches_in: %d' % (stitches_in))
+    print('stitches_out: %d' % (stitches_out))
   return stitches_in == stitches_out
 
 def insert(row, s, count):
@@ -75,7 +78,7 @@ def passLeftToRightPattern(stitches, row, passes):
   needles = []
   for i in range(0, len(row)):
     item = row[i]
-    if isinstance(item, KnitTogetherLeft) or isinstance(item, KnitThreeTogether):
+    if isinstance(item, KnitTogetherRight) or isinstance(item, KnitThreeTogether):
       # lower number needle will be pushed out to pass stitch right 
       stitch = min(item.inStitchIDs)
       needles.append(stitch)
@@ -88,7 +91,7 @@ def passRightToLeftPattern(stitches, row, passes):
   needles = []
   for i in range(0, len(row)):
     item = row[i]
-    if isinstance(item, KnitTogetherRight) or isinstance(item, KnitThreeTogether):
+    if isinstance(item, KnitTogetherLeft) or isinstance(item, KnitThreeTogether):
       # lower number needle will be pushed out to pass stitch right 
       stitch = max(item.inStitchIDs)
       needles.append(stitch)
@@ -111,6 +114,8 @@ def passLefttoRightMoveStitches(stitches, row, passes):
     if(item.currentNeedle < item.outStitchID):
       if(stitches[item.currentNeedle + 1] == 0):
         needles.append(item.currentNeedle)
+        if (stitches[item.currentNeedle] > 1):
+          print('WARNING')
         stitches[item.currentNeedle + 1] = stitches[item.currentNeedle] + stitches[item.currentNeedle + 1]
         stitches[item.currentNeedle] = 0
         item.currentNeedle = item.currentNeedle + 1
@@ -124,6 +129,8 @@ def passRighttoLeftMoveStitches(stitches, row, passes):
     if(item.currentNeedle > item.outStitchID):
       if(stitches[item.currentNeedle - 1] == 0):
         needles.append(item.currentNeedle)
+        if (stitches[item.currentNeedle] > 1):
+          print('WARNING')
         stitches[item.currentNeedle - 1] = stitches[item.currentNeedle] + stitches[item.currentNeedle - 1]
         stitches[item.currentNeedle] = 0
         item.currentNeedle = item.currentNeedle - 1
@@ -141,7 +148,7 @@ def processRow(row):
   passes = []
   for _ in row:
     stitches.append(1)
-  print(stitches)
+  #print(stitches)
 
   i = 0
   j = 0
